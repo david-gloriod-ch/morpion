@@ -1,0 +1,343 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="leaderboard">
+	<div id="player">Joueur : <span id="player-name"></span></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table border="1">
+	<tr class="row" id="row-1">
+		<td class="cellule" player="0" row="1" col="1" diag="1">&nbsp;</td>
+		<td class="cellule" player="0" row="1" col="2" diag="0">&nbsp;</td>
+		<td class="cellule" player="0" row="1" col="3" diag="2">&nbsp;</td>
+	</tr>
+	<tr class="row" id="row-2">
+		<td class="cellule" player="0" row="2" col="1" diag="0">&nbsp;</td>
+		<td class="cellule" player="0" row="2" col="2" diag="3">&nbsp;</td>
+		<td class="cellule" player="0" row="2" col="3" diag="0">&nbsp;</td>
+	</tr>
+	<tr class="row" id="row-3">
+		<td class="cellule" player="0" row="3" col="1" diag="2">&nbsp;</td>
+		<td class="cellule" player="0" row="3" col="2" diag="0">&nbsp;</td>
+		<td class="cellule" player="0" row="3" col="3" diag="1">&nbsp;</td>
+	</tr>
+</table>
+
+
+
+
+
+
+
+
+
+<style>
+
+body {
+	margin-top: 200px;
+	margin-left: 75px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.cellule {
+	height: 100px;
+	width: 100px;
+	border: 1px solid black;
+}
+
+.cellule[player="1"] {
+	background-color: rgb(90, 90, 255);
+}
+
+.cellule[player="2"] {
+	background-color: rgb(255, 117, 117);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+const cellules = document.querySelectorAll('.cellule');
+const playerName = document.querySelector('#player-name');
+
+let player = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for (let cellule of cellules) {
+	cellule.addEventListener('click', () => selectCellule(cellule));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+start();
+
+function start()
+{
+	playerName.innerText = player;
+	for (let cellule of cellules) {
+		cellule.setAttribute('player', 0);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function selectCellule(cellule) {
+	if (!isValidCellule(cellule))
+		return;
+
+	cellule.setAttribute('player', player);
+
+	if (hasWin(cellule))
+	{
+		alert(`Le joueur ${player} a gagné !`);
+		start();
+	}
+	else if (isDraw())
+	{
+		alert(`Match nul !`);
+		start();
+	}
+
+	player = player == 1 ? 2 : 1;
+	playerName.innerText = player;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function isValidCellule(cellule)
+{
+	return cellule.getAttribute('player') == 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function hasWin(cellule)
+{
+	let player = cellule.getAttribute('player');
+	let row = cellule.getAttribute('row');
+	let col = cellule.getAttribute('col');
+	let diag = cellule.getAttribute('diag');
+	let middle = document.querySelector(`.cellule[diag="3"][player="${player}"]`);
+
+	if (document.querySelectorAll(`.cellule[row="${row}"][player="${player}"]`).length === 3)
+		return true;
+	else if (document.querySelectorAll(`.cellule[col="${col}"][player="${player}"]`).length === 3)
+		return true;
+	else if (
+		["1","2"].includes(diag) &&
+		document.querySelectorAll(`.cellule[diag="${diag}"][player="${player}"]`).length === 2 &&
+		middle
+	)
+		return true;
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function isDraw(cellule)
+{
+	return document.querySelectorAll('.cellule[player="0"]').length === 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
