@@ -1,49 +1,6 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div id="leaderboard">
 	<div id="player">Joueur : <span id="player-name"></span></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <table border="1">
 	<tr class="row" id="row-1">
 		<td class="cellule" player="0" row="1" col="1" diag="1">&nbsp;</td>
@@ -62,32 +19,12 @@
 	</tr>
 </table>
 
-
-
-
-
-
-
-
-
 <style>
 
 body {
 	margin-top: 200px;
 	margin-left: 75px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .cellule {
 	height: 100px;
@@ -103,82 +40,18 @@ body {
 	background-color: rgb(255, 117, 117);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 
 <script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 const cellules = document.querySelectorAll('.cellule');
 const playerName = document.querySelector('#player-name');
 
 let player = 1;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 for (let cellule of cellules) {
 	cellule.addEventListener('click', () => selectCellule(cellule));
 }
-
-
-
-
-
-
-
-
-
-
-
 
 start();
 
@@ -189,23 +62,6 @@ function start()
 		cellule.setAttribute('player', 0);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function selectCellule(cellule) {
 	if (!isValidCellule(cellule))
@@ -228,53 +84,10 @@ function selectCellule(cellule) {
 	playerName.innerText = player;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function isValidCellule(cellule)
 {
 	return cellule.getAttribute('player') == 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function hasWin(cellule)
 {
@@ -297,47 +110,9 @@ function hasWin(cellule)
 	return false;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function isDraw(cellule)
 {
 	return document.querySelectorAll('.cellule[player="0"]').length === 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
